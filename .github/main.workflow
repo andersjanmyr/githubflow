@@ -11,5 +11,5 @@ action "echo1" {
 action "echo2" {
   needs = "echo1"
   uses = "docker://alpine:latest"
-  runs = "echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF"
+  runs = "sh -c \"echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF\""
 }
