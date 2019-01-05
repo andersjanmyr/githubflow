@@ -3,13 +3,19 @@ workflow "push-flow" {
   resolves = "echo2"
 }
 
-action "echo1" {
+action "env" {
   uses = "docker://alpine:latest"
   runs = "env"
 }
 
-action "echo2" {
-  needs = "echo1"
+action "cat-event" {
   uses = "docker://alpine:latest"
-  runs = "sh -c \"echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF\""
+  runs = "sh -c cat $GITHUB_EVENT_PATH"
+}
+
+
+action "echo2" {
+  needs = [ "env", "cat-event" ]
+  uses = "docker://alpine:latest"
+  runs = "sh -c echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF"
 }
