@@ -10,14 +10,12 @@ action "env" {
 
 action "cat-event" {
   uses = "docker://alpine:latest"
-  runs = "sh -c"
-  args = "cat $GITHUB_EVENT_PATH"
+  runs = "cat /github/workflow/event.json"
 }
 
 
 action "echo2" {
   needs = [ "env", "cat-event" ]
   uses = "docker://alpine:latest"
-  runs = "sh -c"
-  args = "echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF"
+  runs = 'sh -c "echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF"'
 }
