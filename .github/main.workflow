@@ -17,5 +17,5 @@ action "cat-event" {
 action "echo2" {
   needs = [ "env", "cat-event" ]
   uses = "docker://alpine:latest"
-  runs = 'sh -c "echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF"'
+  runs = 'sh -c \"echo two GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF\" "
 }
