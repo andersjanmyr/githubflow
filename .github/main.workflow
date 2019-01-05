@@ -5,11 +5,11 @@ workflow "push-flow" {
 
 action "echo1" {
   uses = "docker://alpine:latest"
-  runs = "echo one"
+  runs = "echo one GITHUB_REF $GITHUB_REF"
 }
 
 action "echo2" {
   needs = "echo1"
   uses = "docker://alpine:latest"
-  runs = "echo two"
+  runs = "echo two GITHUB_SHA $GITHUB_SHA"
 }
